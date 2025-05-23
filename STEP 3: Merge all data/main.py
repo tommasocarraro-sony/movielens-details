@@ -53,6 +53,8 @@ def merge_description(row):
 
 full_csv['description'] = full_csv.apply(merge_description, axis=1)
 
+full_csv = full_csv.drop(columns=['storyline'])
+
 # save as csv
 full_csv.to_csv('../movielens100k_details.csv', index=False)
 
