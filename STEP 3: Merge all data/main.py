@@ -50,10 +50,13 @@ def merge_description(row):
     else:
         return desc or story
 
+def process_description(row):
+    desc = str(row['description']).strip() if not pd.isna(row['description']) else ''
+    return desc
 
-full_csv['description'] = full_csv.apply(merge_description, axis=1)
 
-full_csv = full_csv.drop(columns=['storyline'])
+full_csv['storyline'] = full_csv.apply(merge_description, axis=1)
+full_csv['description'] = full_csv.apply(process_description, axis=1)
 
 # save as csv
 full_csv.to_csv('../movielens100k_details.csv', index=False)
